@@ -1,4 +1,4 @@
-package controllers
+package controller
 
 import (
 	service "go-gin-gorm-fx-skeleton/api/service/user"
@@ -36,26 +36,26 @@ func (controller *controller) Save(c *gin.Context) {
 	controller.service.Save(user)
 	c.JSON(http.StatusCreated, gin.H{"data": user})
 }
-func (*controller) GetAll(c *gin.Context) {
+func (controller *controller) GetAll(c *gin.Context) {
 	log.Println("Inside GetAll users")
 	users, err := controller.service.GetAll()
-	err != nil {
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOk,gin.H{
-		"data":users
-	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": users,
+	})
 }
-func (*controller) GetByID(c *gin.Context) {
+func (controller *controller) GetByID(c *gin.Context) {
 	log.Println("Inside GetByID")
-	id:=c.Param("id")
-	user, err := u.userService.GetByID(id)
-	err != nil {
+	id := c.Param("id")
+	user, err := controller.service.GetByID(id)
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOk,gin.H{
-		"data":user
-	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": user,
+	})
 }

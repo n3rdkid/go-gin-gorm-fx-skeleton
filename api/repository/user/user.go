@@ -12,6 +12,7 @@ type UserRepository interface {
 	Save(models.User) (models.User, error)
 	GetAll() ([]models.User, error)
 	GetByID(string) (models.User, error)
+	Migrate() error
 }
 type repository struct {
 	DB *gorm.DB
@@ -32,6 +33,7 @@ func (u *repository) Save(user models.User) (models.User, error) {
 }
 func (u *repository) GetAll() (users []models.User, err error) {
 	log.Print("UserRepository :: GetAll")
+	log.Println(users)
 	return users, u.DB.Find(&users).Error
 }
 func (u *repository) GetByID(id string) (user models.User, err error) {

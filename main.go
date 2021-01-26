@@ -9,4 +9,5 @@ func main() {
 	utils.LoadEnv()
 	db := config.InitializeDB()
 	db.Begin()
+	config.InitializeRoutes(db)
 }
