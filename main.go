@@ -1,13 +1,13 @@
 package main
 
 import (
-	"go-gin-gorm-fx-skeleton/config"
-	"go-gin-gorm-fx-skeleton/utils"
+	"go-gin-gorm-fx-skeleton/bootstrap"
+
+	"github.com/joho/godotenv"
+	"go.uber.org/fx"
 )
 
 func main() {
-	utils.LoadEnv()
-	db := config.InitializeDB()
-	db.Begin()
-	config.InitializeRoutes(db)
+	godotenv.Load()
+	fx.New(bootstrap.Module).Run()
 }

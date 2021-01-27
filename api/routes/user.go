@@ -1,27 +1,30 @@
 package routes
 
 import (
-	controller "go-gin-gorm-fx-skeleton/api/controller/user"
-	repository "go-gin-gorm-fx-skeleton/api/repository/user"
-	service "go-gin-gorm-fx-skeleton/api/service/user"
-	"log"
-
-	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
+	"go-gin-gorm-fx-skeleton/api/controller"
+	"go-gin-gorm-fx-skeleton/lib"
 )
 
-// UserRoutes -> UserRoutes
-func UserRoutes(route *gin.RouterGroup, db *gorm.DB) {
+// UserRoutes ->
+type UserRoutes struct {
+	handler        lib.RequestHandler
+	userController controller.UserController
+}
 
-	userRepository := repository.NewUserRepository(db)
-	userService := service.NewUserService(userRepository)
-	userController := controller.NewUserController(userService)
-
-	if err := userRepository.Migrate(); err != nil {
-		log.Fatal("User migrate err", err)
+// Setup -> user routes
+func (s UserRoutes) Setup() {
+	api := s.handler.Gin.Group("/api")
+	{
+		api.GET("/user", s.userController.GetAll)
+		api.GET("/user/:id", s.userController.GetByID)
+		api.POST("/user", s.userController.Save)
 	}
-	route.GET("/", userController.GetAll)
-	route.GET("/:id", userController.GetByID)
-	route.POST("/", userController.Save)
+}
 
+// NewUserRoutes -> Create new user controller
+func NewUserRoutes(handler lib.RequestHandler, userController controller.UserController) UserRoutes {
+	return UserRoutes{
+		handler:        handler,
+		userController: userController,
+	}
 }

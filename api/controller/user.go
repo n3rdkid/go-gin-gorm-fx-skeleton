@@ -1,7 +1,7 @@
 package controller
 
 import (
-	service "go-gin-gorm-fx-skeleton/api/service/user"
+	"go-gin-gorm-fx-skeleton/api/service"
 	"go-gin-gorm-fx-skeleton/models"
 	"log"
 	"net/http"
@@ -9,24 +9,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// UserController -> User Controller Contract
-type UserController interface {
-	Save(c *gin.Context)
-	GetAll(c *gin.Context)
-	GetByID(c *gin.Context)
-}
-
-type controller struct {
+// UserController ->
+type UserController struct {
 	service service.UserService
 }
 
 // NewUserController -> NewUserController constructor
-func NewUserController(s service.UserService) UserController {
-	return &controller{
-		service: s,
+func NewUserController(userService service.UserService) UserController {
+	return UserController{
+		service: userService,
 	}
 }
-func (controller *controller) Save(c *gin.Context) {
+
+// Save ->
+func (controller *UserController) Save(c *gin.Context) {
 	log.Println("Inside Save User")
 	var user models.User
 	if err := c.ShouldBindJSON(&user); err != nil {
@@ -36,7 +32,9 @@ func (controller *controller) Save(c *gin.Context) {
 	controller.service.Save(user)
 	c.JSON(http.StatusCreated, gin.H{"data": user})
 }
-func (controller *controller) GetAll(c *gin.Context) {
+
+// GetAll ->
+func (controller *UserController) GetAll(c *gin.Context) {
 	log.Println("Inside GetAll users")
 	users, err := controller.service.GetAll()
 	if err != nil {
@@ -47,7 +45,9 @@ func (controller *controller) GetAll(c *gin.Context) {
 		"data": users,
 	})
 }
-func (controller *controller) GetByID(c *gin.Context) {
+
+// GetByID ->
+func (controller *UserController) GetByID(c *gin.Context) {
 	log.Println("Inside GetByID")
 	id := c.Param("id")
 	user, err := controller.service.GetByID(id)
