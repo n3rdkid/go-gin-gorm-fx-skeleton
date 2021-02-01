@@ -23,8 +23,8 @@ func (s UserRoutes) Setup() {
 	api := s.handler.Gin.Group("/api")
 	{
 		api.GET("/user", s.userController.GetAll)
-		api.GET("/user/:id", s.userController.GetByID)
 		api.POST("/user", s.userController.Save)
+		api.GET("/user/:id", s.userController.GetByID)
 	}
 }
 

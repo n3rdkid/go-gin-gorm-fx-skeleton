@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"go-gin-gorm-fx-skeleton/api/repository"
 	"go-gin-gorm-fx-skeleton/models"
 )
@@ -21,7 +22,7 @@ func NewUserService(repo repository.UserRepository) UserService {
 func (s *UserService) Save(user models.User) (models.User, error) {
 	_, err := s.userRepository.GetByID(user.ID)
 	if err == nil {
-		return user, err
+		return user, errors.New("User already exists")
 	}
 	return s.userRepository.Save(user)
 }

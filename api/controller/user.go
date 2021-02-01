@@ -29,7 +29,11 @@ func (controller *UserController) Save(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	controller.service.Save(user)
+	user, err1 := controller.service.Save(user)
+	if err1 != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err1.Error()})
+		return
+	}
 	c.JSON(http.StatusCreated, gin.H{"data": user})
 }
 
@@ -50,6 +54,7 @@ func (controller *UserController) GetAll(c *gin.Context) {
 func (controller *UserController) GetByID(c *gin.Context) {
 	log.Println("Inside GetByID")
 	id := c.Param("id")
+	println("ID", id)
 	user, err := controller.service.GetByID(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
