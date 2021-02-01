@@ -7,7 +7,6 @@ import (
 	"go-gin-gorm-fx-skeleton/api/routes"
 	"go-gin-gorm-fx-skeleton/api/service"
 	"go-gin-gorm-fx-skeleton/lib"
-	"log"
 
 	"go.uber.org/fx"
 )
@@ -29,7 +28,6 @@ func bootstrap(
 	env lib.Env,
 	database lib.Database,
 ) {
-	log.Println("PRINTING ONE")
 	conn, _ := database.DB.DB()
 
 	lifecycle.Append(fx.Hook{

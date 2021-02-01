@@ -16,6 +16,12 @@ func NewUserRepository(db lib.Database) UserRepository {
 	return UserRepository{db: db}
 }
 
+// Migrate ->
+func (u *UserRepository) Migrate() error {
+	log.Print("[UserRepository]...Migrate")
+	return u.db.DB.AutoMigrate(&models.User{})
+}
+
 // Save ->
 func (u *UserRepository) Save(user models.User) (models.User, error) {
 	log.Print("UserRepository :: Save")
