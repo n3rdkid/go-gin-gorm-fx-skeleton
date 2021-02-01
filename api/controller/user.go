@@ -5,6 +5,7 @@ import (
 	"go-gin-gorm-fx-skeleton/models"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -54,8 +55,13 @@ func (controller *UserController) GetAll(c *gin.Context) {
 func (controller *UserController) GetByID(c *gin.Context) {
 	log.Println("Inside GetByID")
 	id := c.Param("id")
-	println("ID", id)
-	user, err := controller.service.GetByID(id)
+	idx, err := (strconv.ParseUint(id, 10, 64))
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	user, err := controller.service.GetByID(uint(idx))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

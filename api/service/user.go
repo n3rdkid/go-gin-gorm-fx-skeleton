@@ -33,6 +33,6 @@ func (s *UserService) GetAll() (users []models.User, err error) {
 }
 
 // GetByID ->
-func (s *UserService) GetByID(id string) (models.User, error) {
+func (s *UserService) GetByID(id uint) (models.User, error) {
 	return s.userRepository.GetByID(id)
 }

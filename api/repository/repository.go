@@ -7,4 +7,5 @@ import (
 // Module ->
 var Module = fx.Options(
 	fx.Provide(NewUserRepository),
+	fx.Provide(NewWishListsRepository),
 )

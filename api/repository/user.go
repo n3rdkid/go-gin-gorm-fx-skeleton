@@ -37,7 +37,7 @@ func (u *UserRepository) GetAll() (users []models.User, err error) {
 }
 
 // GetByID ->
-func (u *UserRepository) GetByID(id string) (user models.User, err error) {
+func (u *UserRepository) GetByID(id uint) (user models.User, err error) {
 	log.Print("UserRepository :: GetByID")
 	err = u.db.DB.Where("id = ?", id).First(&user).Error
 	if err != nil {
