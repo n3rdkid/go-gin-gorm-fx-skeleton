@@ -9,8 +9,7 @@ type WishList struct {
 	gorm.Model
 	ItemName  string  `json:"item_name"`
 	ItemPrice float64 `json:"item_price"`
-	UserID    int64   `json:"user_id"`
-	User      User
+	UserID    uint    `json:"user_id"`
 }
 
 // TableName -> Overriding default table name
