@@ -48,7 +48,7 @@ jobs:
       - name: Initialize the environment variables
         run: |
           echo "ENVIRONMENT=local
-          ServerPort=8080
+          ServerPort=:8080
           DBHost=localhost
           DBPort=3306
           DBName=go_db
