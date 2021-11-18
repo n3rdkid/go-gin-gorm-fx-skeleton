@@ -76,12 +76,12 @@ jobs:
         run: |
           rm -rf .env
           echo "ENVIRONMENT=${{secrets.ENVIRONMENT}}
-          ServerPort=${{secrets.ServerPort}}
-          DBHost=${{secrets.DBHost}}
-          DBPort=${{secrets.DBPort}}
-          DBName=${{secrets.DBName}}
-          DBUsername=${{secrets.DBUsername}}
-          DBPassword=${{secrets.DBPassword}}
+          ServerPort=${{secrets.SERVERPORT}}
+          DBHost=${{secrets.DBHOST}}
+          DBPort=${{secrets.DBPORT}}
+          DBName=${{secrets.DBNAME}}
+          DBUsername=${{secrets.DBUSERNAME}}
+          DBPassword=${{secrets.DBPASSWORD}}
           " > .env
     
       - name: Setup Cloud SDK
