@@ -39,12 +39,24 @@ jobs:
           go-version: '^1.14'
       - run: go version
       
-      - name: Set up MySQL
-        run: |
-          sudo ls/etc/init.d/
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE go_db;' -uroot -proot
-          mysql -e "show databases;" -uroot -proot
+      # - name: Set up MySQL
+      #   run: |
+      #     sudo ls /etc/init.d/
+      #     sudo /etc/init.d/mysql start
+      #     mysql -e 'CREATE DATABASE go_db;' -uroot -proot
+      #     mysql -e "show databases;" -uroot -proot
+      
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3306
+          container port: 3307
+          character set server: 'utf8' 
+          collation server: 'utf8_general_ci'
+          mysql version: '8.0' 
+          mysql database: 'go_db' 
+          mysql root password: 'root'
+          mysql user: 'root' 
+          mysql password: 'root' 
       
       # - name: Initialize the environment variables
       #   run: |
