@@ -41,7 +41,8 @@ jobs:
       
       - name: Set up MySQL
         run: |
-          sudo systemctl start mysql
+          sudo /etc/init.d/mysql start
+          #sudo systemctl start mysql
           mysql -e 'CREATE DATABASE go_db;' -uroot -proot
           mysql -e "show databases;" -uroot -proot
       
